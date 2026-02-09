@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f8ff;
+  --foreground: #081c53;
+}
+
+@theme inline {
+  /* fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-inter: var(--font-inter);
+  --font-sfpro: var(--font-sfpro);
+
+  /* colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: #0e35a0;
+  --color-primary-hover: #2250cc;
+  --color-secondary: #0030b5;
+  --color-subtext: #081c5380; /* foreground with 50% opacity */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@utility smooth-transition {
+  @apply transition-all duration-400 ease-in-out;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake-on-hover:hover {
+  animation: shake 0.4s ease-in-out infinite;
+}
