@@ -31,8 +31,8 @@ const steps = [
         <path d="M18 16v4M16 18h4" stroke="#0e35a0" strokeWidth="1.5"/>
       </svg>
     ),
-    title: "Select driving mode",
-    desc: "Choose between self-drive or a professional driver based on your preference and convenience.",
+  title: "Get a professional driver",
+desc: "Every ride comes with a professional driver to ensure your comfort and safety throughout your journey.",
   },
   {
     icon: (
@@ -42,7 +42,7 @@ const steps = [
       </svg>
     ),
     title: "Book and confirm",
-    desc: "Choose between self-drive or a professional driver based on your preference and convenience.",
+    desc: "Review your trip details, confirm your booking, and get ready to ride in style.",
   },
 ];
 

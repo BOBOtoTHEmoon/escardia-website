@@ -23,7 +23,7 @@ const vendorSteps = [
       </svg>
     ),
     title: "Set Driver options",
-    desc: "Choose whether to provide a professional driver, allow self-drive, or offer both for each booking.",
+    desc: "Provide a professional driver for each booking to ensure a premium experience for renters.",
   },
   {
     icon: (

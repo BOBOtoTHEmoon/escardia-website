@@ -12,7 +12,7 @@ const iconsList = [
     link: false,
     href: "#",
   },
-  { icon: "phone", contact: "+234 911 651 1460", link: false, href: "#" },
+  { icon: "phone", contact: "+234 812 016 0702", link: false, href: "#" },
   {
     icon: "instagram",
     contact: "@escardia.co",
