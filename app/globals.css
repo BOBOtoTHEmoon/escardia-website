@@ -1,60 +1,205 @@
 @import "tailwindcss";
 
+/* Escardia website tokens. Same palette as the app: #2F5FED blue, navy for premium moments. */
 :root {
-  --background: #f5f8ff;
-  --foreground: #081c53;
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --sunken: #eef2f9;
+  --ink: #0b1530;
+  --text: #334155;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --primary: #2f5fed;
+  --primary-hover: #2350d6;
+  --primary-soft: #e8eefe;
+  --navy: #0b1530;
+  --navy-soft: #14214a;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #090d18;
+    --surface: #111827;
+    --sunken: #0d1322;
+    --ink: #f1f5f9;
+    --text: #cbd5e1;
+    --muted: #94a3b8;
+    --line: #1f2a3d;
+    --primary: #4b72f2;
+    --primary-hover: #6386f5;
+    --primary-soft: #16224a;
+    --navy: #0b1328;
+    --navy-soft: #17244f;
+    color-scheme: dark;
+  }
 }
 
 @theme inline {
-  /* fonts */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-inter: var(--font-inter);
-  --font-sfpro: var(--font-sfpro);
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
-  /* colors */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: #0e35a0;
-  --color-primary-hover: #2250cc;
-  --color-secondary: #0030b5;
-  --color-subtext: #081c5380; /* foreground with 50% opacity */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+/* Everything is sized in rem, so the whole site scales from here:
+   phones and tablets 85%, laptops 87.5%, big screens 80%. */
+html {
+  font-size: 85%;
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+@media (min-width: 1440px) {
+  html {
+    font-size: 80%;
+  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-@utility smooth-transition {
-  @apply transition-all duration-400 ease-in-out;
+::selection {
+  background: #2f5fed;
+  color: #fff;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* Subtle grid used behind the navy sections. */
+.navy-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 30% 20%, black 20%, transparent 75%);
 }
 
-@keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-  100% {
-    transform: translateX(0);
-  }
+/* ---------- Hero background ---------- */
+@keyframes drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-12%, 10%, 0) scale(1.15); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1); }
+  50% { transform: translate3d(14%, -8%, 0) scale(0.9); }
+}
+@keyframes drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.9); opacity: 0.25; }
+  50% { transform: translate3d(-8%, -12%, 0) scale(1.2); opacity: 0.45; }
+}
+.blob-a { animation: drift-a 18s ease-in-out infinite; }
+.blob-b { animation: drift-b 22s ease-in-out infinite; }
+.blob-c { animation: drift-c 15s ease-in-out infinite; }
+
+/* A road-like grid floor that keeps rolling towards you. */
+@keyframes road {
+  from { background-position: 0 0; }
+  to { background-position: 0 64px; }
+}
+.road {
+  background-image: linear-gradient(rgba(157, 180, 255, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(157, 180, 255, 0.35) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(520px) rotateX(68deg);
+  transform-origin: center top;
+  animation: road 2.4s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 45%, black 70%, transparent 100%);
 }
 
-.shake-on-hover:hover {
-  animation: shake 0.4s ease-in-out infinite;
+/* Light streaks, like headlights passing at night. */
+@keyframes streak {
+  0% { transform: translateX(-40vw); opacity: 0; }
+  10% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateX(140vw); opacity: 0; }
+}
+.streak {
+  position: absolute;
+  left: 0;
+  height: 1px;
+  width: 22vw;
+  background: linear-gradient(90deg, transparent, rgba(157, 180, 255, 0.9), #fff);
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px rgba(120, 150, 255, 0.9));
+  animation: streak linear infinite;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.float-y { animation: float-y 6s ease-in-out infinite; }
+
+/* Shine that sweeps across a button on hover. */
+.shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+.shine:hover::after {
+  transform: translateX(120%);
+}
+
+/* Card lift used across the site. */
+.lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px -24px rgba(15, 30, 80, 0.35);
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+}
+
+/* FAQ accordion */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .streak {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

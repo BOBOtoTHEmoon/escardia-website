@@ -1,115 +1,71 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import {
-  Footer,
-  Navbar,
-  SuccessModal,
-  VendorModal,
-  WaitlistModal,
-} from "@/components";
-import { ContextProvider } from "@/contexts/contextprovider";
-import Head from "next/head";
-import Link from "next/link";
+import Navbar from "@/components/site/Navbar";
+import Footer from "@/components/site/Footer";
+import Motion from "@/components/site/Motion";
+import { SITE } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const sfpro = localFont({
+// Poppins is self-hosted (SIL Open Font License), so builds never depend on Google Fonts.
+const poppins = localFont({
+  variable: "--font-poppins",
+  display: "swap",
   src: [
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Thin.otf",
-      weight: "100",
-      style: "normal",
-    },
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Ultralight.otf",
-      weight: "200",
-      style: "normal",
-    },
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Light.otf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Regular.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Medium.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Semibold.otf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "./fonts/SF Pro Rounded/SF-Pro-Rounded-Heavy.otf",
-      weight: "800",
-      style: "normal",
-    },
-    // Add more weights/styles as needed
+    { path: "./fonts/poppins/Poppins-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/poppins/Poppins-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/poppins/Poppins-600.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/poppins/Poppins-700.woff2", weight: "700", style: "normal" },
   ],
-  variable: "--font-sfpro",
 });
 
 export const metadata: Metadata = {
-  title: "ESCARDIA",
-  description:
-    "From elite vehicles to trusted escorts, redefine your travel with security and class in one move.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} | ${SITE.tagline}`,
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE.description,
+  applicationName: SITE.name,
+  keywords: ["luxury car rental Lagos", "car hire with driver Lagos", "chauffeur Lagos", "security escort Lagos", "Escardia"],
+  openGraph: {
+    type: "website",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: `${SITE.name} | ${SITE.tagline}`,
+    description: SITE.description,
+    locale: "en_NG",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@escardiaco",
+    title: `${SITE.name} | ${SITE.tagline}`,
+    description: SITE.description,
+  },
+  verification: {
+    google: "LM4XZ7o6fPYvqBs5rwqaM6_CZIP-py-ppyfTgt1P2fk",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#0B1530",
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <Head>
-        <meta
-          name="google-site-verification"
-          content="LM4XZ7o6fPYvqBs5rwqaM6_CZIP-py-ppyfTgt1P2fk"
-        />
-        <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      </Head>
-      <ContextProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${sfpro.variable} antialiased max-w-[1800px] mx-auto overflow-x-hidden`}
+    <html lang="en" className={poppins.variable}>
+      <body className="overflow-x-hidden">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-[#0B1530]"
         >
+          Skip to content
+        </a>
+        <Motion>
           <Navbar />
-          <main className="mx-[8%] max-md:mx-[5%] max-sm:mx-[3%] font-sfpro min-h-[75vh]">
-            {children}
-          </main>
+          <main id="main">{children}</main>
           <Footer />
-          <VendorModal />
-          <WaitlistModal />
-          <SuccessModal />
-        </body>
-      </ContextProvider>
+        </Motion>
+      </body>
     </html>
   );
-  <div id="test"></div>;
 }
