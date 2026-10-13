@@ -9,7 +9,7 @@ export const SITE = {
 };
 
 export const CONTACT = {
-  email: "support@escardia.app",
+  email: "hello@escardia.app",
   phoneDisplay: "+234 911 651 1460",
   phone: "+2349116511460",
   whatsapp: "https://wa.me/2349116511460",
