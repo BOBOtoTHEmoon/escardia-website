@@ -13,10 +13,10 @@ export const CONTACT = {
   phoneDisplay: "+234 911 651 1460",
   phone: "+2349116511460",
   whatsapp: "https://wa.me/2349116511460",
-  instagram: "https://instagram.com/escardia.co",
-  instagramHandle: "@escardia.co",
-  x: "https://x.com/escardiaco",
-  xHandle: "@escardiaco",
+  instagram: "https://instagram.com/escardiaapp",
+  instagramHandle: "@escardiaapp",
+  x: "https://x.com/escardiaapp",
+  xHandle: "@escardiaapp",
   city: "Lagos, Nigeria",
 };
 
