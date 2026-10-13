@@ -178,6 +178,16 @@ body {
   border-color: color-mix(in srgb, var(--primary) 40%, transparent);
 }
 
+/* iPhones zoom into any text field smaller than 16px. Keep fields at 16px on touch screens
+   so typing never zooms the page (pinch zoom still works for anyone who needs it). */
+@media (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
 /* FAQ accordion */
 details > summary {
   list-style: none;
